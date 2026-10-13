@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -13,7 +13,8 @@ import { cn } from '@/lib/utils'
 const number = (value: number) => value.toLocaleString('ko-KR', { maximumFractionDigits: 1 })
 export default function TemporalPage() {
   const state = useTemporal()
-  const [selected, setSelected] = useState('Z06')
+  const [params] = useSearchParams()
+  const [selected, setSelected] = useState(params.get('zone') ?? 'Z06')
   const zone = state.status === 'ready' ? state.data.zones.find((z) => z.candidate.zoneId === selected) : undefined
   return <div className="space-y-7">
     <section className="page-intro"><div><Badge>2026 Q2 · TEMPORAL ANALYSIS</Badge><h1 className="mt-3">시간대별 분석</h1><p className="mt-3 max-w-3xl text-[13px] leading-relaxed text-slate-500">후보 권역별 버스 승차·운행의 시간적 분포를 비교하고, 상대적 차이가 크게 나타나는 시간대를 탐색합니다.</p><p className="mt-2 text-xs text-slate-400">2026년 4월–6월 · 유효 관측 90일</p></div><Button variant="outline" asChild><Link to="/">종합 현황으로 돌아가기</Link></Button></section>

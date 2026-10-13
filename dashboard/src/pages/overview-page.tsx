@@ -33,7 +33,7 @@ export function OverviewPage() {
         <div className="grid items-stretch gap-5 xl:grid-cols-[minmax(0,1fr)_310px]">
           <Card className="min-w-0 overflow-hidden">
             <ErrorBoundary label="지도를 표시하지 못했습니다"><Suspense fallback={<div className="flex h-[470px] items-center justify-center bg-slate-100 text-sm text-slate-500" role="status">지도를 준비하고 있습니다.</div>}><CandidateMap candidates={candidates} selectedId={effectiveSelection} onSelect={setSelectedId} /></Suspense></ErrorBoundary>
-            <div className="border-t border-border px-5 py-4"><SelectionSummary candidate={candidates.find((c) => c.zoneId === effectiveSelection)} /></div>
+            <div className="border-t border-border px-5 py-4"><SelectionSummary candidate={candidates.find((c) => c.zoneId === effectiveSelection)} /><Link to={`/zones?zone=${effectiveSelection}`} className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-blue-600">선택 후보의 권역 상세 보기<ArrowUpRight size={13} /></Link></div>
           </Card>
           <CandidateList candidates={candidates} selectedId={effectiveSelection} onSelect={setSelectedId} />
         </div>

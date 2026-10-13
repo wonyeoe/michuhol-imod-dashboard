@@ -34,11 +34,12 @@ try {
     await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link', { name: new RegExp(title) }).click()
     await expect(page).toHaveURL(`${baseURL}/${path}`)
     if (path === 'temporal') await expect(page.getByTestId('temporal-Z06')).toBeVisible()
+    else if (path === 'zones') await expect(page.getByTestId('zone-list-Z06')).toBeVisible()
     else await expect(page.getByRole('heading', { name: '분석 화면을 준비하고 있습니다' })).toBeVisible()
     await page.reload()
     await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible()
   }
-  checks.push('세 안내 페이지 라우팅·직접 새로고침')
+  checks.push('시간대별·권역 탐색·분석 안내 라우팅 및 직접 새로고침')
   await page.goto(`${baseURL}/missing-page`)
   await expect(page.getByRole('heading', { name: '페이지를 찾을 수 없습니다' })).toBeVisible()
   await page.setViewportSize({ width: 390, height: 844 })

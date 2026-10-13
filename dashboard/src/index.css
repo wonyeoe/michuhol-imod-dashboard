@@ -68,6 +68,13 @@
 .candidate-marker.is-selected { background: #2563eb; color: #fff; box-shadow: 0 0 0 5px #2563eb20, 0 3px 12px #0f172a35; }
 .candidate-marker.is-selected::before { border-color: #2563eb; }
 .candidate-marker.is-selected small { color: #1d4ed8; }
+.zone-map-wrapper { height: 560px; }
+.zone-marker { position: relative; display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 3px solid white; border-radius: 50%; box-shadow: 0 2px 8px #0f172a30; font-size: 13px; font-weight: 700; }
+.zone-marker-final { background: #2563eb; color: white; }
+.zone-marker-other { background: #64748b; color: white; }
+.zone-marker small { position: absolute; top: 32px; padding: 1px 4px; border-radius: 4px; background: #fffffff0; color: #334155; font-size: 10px; line-height: 15px; }
+.zone-marker.is-selected { outline: 3px solid #172554; outline-offset: 3px; box-shadow: 0 0 0 8px #2563eb20; }
+.zone-marker.is-selected small { color: #1e3a8a; font-weight: 800; }
 .leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 6px 25px #0f172a20; }
 .leaflet-popup-content { margin: 16px 20px; font-family: inherit; }
 .leaflet-container a.leaflet-popup-close-button { top: 5px; right: 5px; color: #94a3b8; }

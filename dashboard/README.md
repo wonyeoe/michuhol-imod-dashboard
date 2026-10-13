@@ -1,4 +1,4 @@
-# I-MOD 인사이트 — 종합 현황·시간대별 분석
+# I-MOD 인사이트 — 종합 현황·시간대별 분석·후보 권역 탐색
 
 인천 미추홀구 버스 승차·운행 데이터 기반 I-MOD 예비 검토 후보 대시보드다. 기존 STEP 1~7 분석 결과를 재학습·재산정하지 않고 사용한다.
 
@@ -31,7 +31,7 @@ npm run preview
 |---|---|
 | `/` | 프로젝트 소개, 실제 CSV 기반 KPI 4개, 최종 후보 지도·목록·비교표·수요 비교 차트, 시간대별 분석 안내, 데이터 출처 |
 | `/temporal` | 6개 후보 선택, 시간별 비중 선그래프·상대 격차 막대, 월별 일평균·운행 표, 동적 해석·집계 기준 |
-| `/zones` | 라우팅과 후속 개발 안내 |
+| `/zones` | 26개 권역 지도·필터·검색, 상세 지표·구성 그룹, 최종 6개와 비교 |
 | `/analysis` | 라우팅과 후속 개발 안내 |
 | 기타 | 404 안내 |
 
@@ -186,7 +186,7 @@ npm run test:browser
 - 배경 지도는 외부 OpenStreetMap 표준 타일을 사용하므로 인터넷 연결이 필요하다. 출처 표기를 유지한다. 공개 배포 시 예상 트래픽에 맞춰 [OSM 타일 사용 정책](https://operations.osmfoundation.org/policies/tiles/)과 공급자를 검토한다.
 - BrowserRouter를 사용한다. 정적 호스팅은 `/temporal`, `/zones`, `/analysis` 요청을 `index.html`로 되돌리는 SPA fallback을 설정해야 한다.
 - 하위 경로 배포 시 Vite의 `base`를 지정한다. 데이터 경로와 Router basename은 `BASE_URL`을 따른다.
-- 이후 `/zones`에는 26개 평가 단위의 상세 탐색을 구현할 수 있다.
+- `/zones`는 STEP 6·7의 26개 평가 단위 상세 탐색을 제공한다.
 - `/analysis`는 STEP 3 군집과 STEP 4~7의 점수·민감도 결과를 연결한다.
 - 임의 날짜·요일 조회는 큰 시간대 자료를 별도 경량 집계하는 설계가 필요하다. 기존 고정 분석 결과와 기간 필터 통계는 구분해야 한다.
 - 본 단계에서는 웹 배포·백엔드·데이터베이스·분석 재실행을 수행하지 않는다.
@@ -246,3 +246,73 @@ STEP 7 Notebook의 `h.groupby(['zone_id','hour']).sum()`과 월별 집계 코드
 - 상대 격차가 실제 0인 시간은 높이가 0이므로 Recharts 막대 도형이 생기지 않는다. 브라우저 테스트는 실제 비영 값의 수와 대조하며, 24시간 원자료와 축은 유지한다.
 
 실행·검증 명령은 위와 동일하다. `npm run test:browser`는 종합 현황 회귀와 시간대별 테스트를 함께 실행한다. 후속 작업은 후보 권역 상세와 AI 분석 근거 페이지이며, 임의 월·날짜·요일의 시간 분포를 보려면 원천 시간 자료의 별도 집계가 필요하다.
+
+## 3차 구현: 후보 권역 탐색
+
+`/zones`는 기존 STEP 6·7 결과를 탐색한다. 점수 재계산·후보 재선정·군집화·원본 수정은 하지 않는다. 기존에 동기화된 CSV를 그대로 사용하므로 추가 복사본이나 의존성이 없다. 시간대 원천 대용량 CSV를 다운로드하지 않는다.
+
+### 지도·필터·상세·비교
+
+- 권역 대표점 26개: 최종 예비 후보 6개는 파랑, 나머지 20개는 회색. 선택은 진한 외곽선으로 강조한다. 파란 마커의 숫자는 STEP 7 최종 검토 순서이며 `Zxx`는 식별자다.
+- 지도와 목록·상세가 같은 선택 상태를 사용한다. 선택 좌표가 보이지 않으면 지도 안으로 이동한다. 전체 보기는 현재 표시된 권역의 범위에 맞춘다.
+- 전체/최종 후보/나머지 필터와 ID·정류장명 부분 검색을 함께 적용한다. 최종 후보는 검토 순서, 나머지는 ID 오름차순. 값과 순위를 재계산하지 않는다.
+- 필터·검색 결과에 선택 권역이 없으면 첫 번째 표시 권역을 선택한다. 결과가 없으면 지도·목록에 빈 상태를 표시하고 상세·비교를 숨긴다. 초기화 버튼으로 복구한다.
+- 구성 그룹은 `stop_group_id`와 `station_name`을 표시한다. 체크박스를 켜면 선택 권역의 실제 그룹 대표점만 녹색 기호로 표시한다. 좌표 두 값이 모두 없으면 목록은 보존하고 지도 기호만 생략한다. 반쪽 좌표·잘못된 좌표는 오류로 처리한다.
+- 상세에는 구성 그룹 수, 일평균 승차량, 최대 상대 격차 시간과 %p, 양의 격차 합, 월별 최소/최대 비율·CV, 4개 시나리오 점수·순위를 표시한다. 최종 후보에만 검토 순서와 상위 6위 포함 횟수를 표시한다.
+- 비교 차트는 일평균 승차량(명/일), 양의 격차 합(0–1), 시나리오 점수(0–100)를 별도 축으로 표현한다. 선택한 권역이 최종 후보이면 6개, 나머지이면 최종 6개에 선택 권역을 더해 7개를 비교한다. 4개 시나리오 전환 및 정확한 수치 표를 제공한다.
+- 종합 현황의 선택 요약 아래 링크는 `/zones?zone=Zxx`로 선택을 전달한다. 최종 후보 상세는 `/temporal?zone=Zxx`로 같은 후보를 연다. 나머지 권역의 링크는 기존 최종 6개 시간대별 화면으로 안내한다.
+- CSV 로딩·오류·빈 결과·재시도, 지도 타일 오류·재시도를 제공한다. 타일이 실패해도 실제 좌표 마커와 목록·상세는 유지한다.
+
+### 사용한 실제 컬럼과 연결
+
+기존 `loadOverviewTables` → `buildOverview`의 감사·키·최종 후보 검증을 재사용하고 `buildZones`에서 26개 전체를 검증한다. 후보 여부는 **최종 6개 CSV의 `zone_id` 집합**으로만 결정한다. 전체 평가 CSV에 있는 7~26의 `provisional_review_order`를 비후보의 최종 검토 순서로 노출하지 않는다.
+
+| 원본 | 실제 사용 컬럼 | 역할 |
+|---|---|---|
+| STEP 6 `05_complete500_assignments.csv` | `zone_id`, `stop_group_id`, `station_name`, `representative_latitude`, `representative_longitude` | 40개 그룹의 권역 구성과 그룹 대표점 |
+| STEP 6 `06_complete500_zone_profiles.csv` | `zone_id`, `n_stop_groups`, `names`, `lat`, `lon`, `diameter_m` | 26개 권역 대표점, 그룹 수·이름 대조, 기록된 최대 거리 |
+| STEP 7 `04_all_26_zones_scenario_scores.csv` | `zone_id`, `names`, `n_stops`, `daily_demand`, `daily_ops`, `peak_hour`, `peak_hour_gap`, `positive_gap_sum`, `monthly_cv`, `monthly_min_max_ratio`, `top6_frequency` | 전체 권역 지표; `daily_ops`는 로더에서 검증하며 별도 카드로 노출하지 않음 |
+| 같은 전체 평가 CSV | `score_balanced`, `rank_balanced`, `top6_balanced`, `score_demand_priority`, `rank_demand_priority`, `top6_demand_priority`, `score_time_priority`, `rank_time_priority`, `top6_time_priority`, `score_robustness_priority`, `rank_robustness_priority`, `top6_robustness_priority` | 시나리오별 점수·순위·상위 6위 여부 |
+| STEP 7 `05_provisional_top6_review.csv` | `zone_id`, `provisional_review_order`, 기존 후보 표시 필드와 위 평가 지표 | 최종 후보 여부·검토 순서, 전체 평가 결과와 값 교차 검증 |
+| 기존 그룹 특징·감사 파일 | `stop_group_id`, `station_name`, `observed_days`, 그룹·권역·후보 수 등 기존 감사 필드 | 기존 정류장명 그룹 마스터와 규모 검증 |
+
+권역 프로필과 평가는 `zone_id`의 1:1 결합, 할당 그룹은 `zone_id`의 N:1 결합이다. 그룹 ID·이름 대응은 기존 마스터와 대조한다. 물리 정류장 `station_id`, 일반 `latitude`·`longitude`를 그룹 키·대표 좌표로 대체하지 않는다.
+
+### 좌표 출처와 500m 해석
+
+STEP 6 Notebook을 확인했다. 그룹 대표점 사이의 **Haversine 거리**를 구한 후 Complete Linkage 500m를 적용했다. 권역 CSV의 `lat`·`lon`은 구성 그룹의 `representative_latitude`·`representative_longitude` 산술평균이다. 지도는 이 기록된 좌표를 그대로 사용하며, 평균은 값의 대응 검증에만 이용한다. `diameter_m`도 CSV 기록값을 표시한다.
+
+500m는 구성 그룹 대표점 사이의 최대 거리 조건이다. 중심에서 반경 500m, 도보·도로 주행거리, 행정 경계 또는 실제 운영 영역을 뜻하지 않는다. 지도에 서비스 반경 원·폴리곤을 만들지 않았다. 그룹 대표점의 `CircleMarker`는 고정 7픽셀의 화면 기호이며 지리적 반경이 아니다. 대표점은 배차 지점이나 정확한 승차 시설 위치가 아니다.
+
+### 지표 해석
+
+- `daily_demand`: 구성 그룹의 `avg_daily_passengers`를 합산한 기존 STEP 7 결과. 단위 명/일, 관측 90일.
+- `positive_gap_sum`: 권역 시간별 `demand_share - supply_share` 중 양수의 합. 0–1 척도를 그대로 표시한다. 구성 그룹의 `median_mismatch`와 합치지 않는다.
+- `peak_hour_gap × 100`: 최대 차이 시간의 상대 격차(%p). 승차량 최대 시간 또는 공급 부족 확정 지표로 설명하지 않는다.
+- 두 시간 비중의 분모는 각 권역의 90일·24시간 승차·운행 누적 총량으로 각각 다르다.
+- `monthly_min_max_ratio`: 3개월 일평균 승차량의 최소/최대 비율. `monthly_cv`: 같은 3개 일평균의 표본 표준편차(ddof=1)/평균. 월 관측일 30·31·29일; 6월 11일 제외.
+- 4개 시나리오의 `score_*`는 26개 권역 안에서 구한 백분위 지표의 가중합이다. 기존 CSV만 읽고 웹에서 다시 계산하지 않는다. 점수는 도입 효과·운영 효율의 절대 평가가 아니다. `rank_*`와 최종 검토 순서를 구분한다.
+
+### 생성·수정 파일
+
+- 생성: `src/types/zones.ts`, `src/data/zones.ts`, `src/hooks/use-zones.ts`, `src/pages/zones-page.tsx`.
+- 생성: `src/components/zones/zone-map.tsx`, `zone-list.tsx`, `zone-detail.tsx`, `zone-comparison.tsx`.
+- 생성: `tests/zones.test.ts`, `tests/zones-browser.mjs`.
+- 수정: `src/App.tsx`, `src/components/layout.tsx`, `src/index.css`, `src/pages/overview-page.tsx`, `src/pages/temporal-page.tsx`, `tests/browser.mjs`, `package.json`, `README.md`.
+- 자동 생성: `dist/`, `test-results/zones-desktop.png`, `test-results/zones-mobile.png`와 검증 로그. 기존 Git 제외 규칙을 따른다.
+- CSV 동기화 스크립트·원본 CSV·Notebook·기존 분석 결과는 수정하지 않았다.
+
+실행은 `npm run dev`, 빌드는 `npm run build`, 단위 검증은 `npm test`다. `npm run test:browser`는 실행 중인 로컬 서버에 대해 종합 현황·시간대별·권역 탐색 3개 검증을 순서대로 실행한다. 다른 포트는 `DASHBOARD_URL`로 지정한다.
+
+후속 범위는 `/analysis` 구현이다. 이번 요청 범위의 권역 탐색 기능은 모두 구현했으며, 신규 군집화·AI 재학습·OD/이동 경로 추정·실제 운영 경계·백엔드/DB는 범위에서 제외했다.
+
+### 3차 검증 결과 (2026-10-13)
+
+- `npm test`: 기존 17개 + 권역 계약 13개, 총 30개 통과. 실제 26개 전체의 수치·그룹·좌표, 후보 6/나머지 20, 최종 순서, 필터·검색, 중복·잘못된 참조, 결측·범위 밖 좌표·대표점 불일치, 빈 자료를 검증했다.
+- `npm run build`: TypeScript 및 Vite 프로덕션 빌드 성공. 권역 페이지와 지도는 별도 청크로 지연 로딩한다. 환경의 기존 출력 정리 문제를 피하려고 경로 검증 후 생성된 `dist/`만 정리해 표준 빌드를 실행했다.
+- Chrome 개발 서버: 기존 종합 현황 회귀와 시간대별 페이지 검증 통과. 지도·목록·표, 시간대별 선택·차트, 라우팅·직접 새로고침, 모바일·오류·빈 상태·재시도를 확인했다.
+- Chrome 최종 프로덕션 미리보기: 권역 탐색 자동 검증 통과. 26개 전부 선택하여 실제 CSV 지표·구성 그룹과 대조했고, 26/6/20 마커·목록, ID·이름 검색과 빈 결과, 그룹 대표점, 6/7개 비교 및 시나리오 전환을 확인했다.
+- 종합 현황 → 권역 → 시간대별 페이지의 선택 전달, 쿼리 포함 직접 새로고침, CSV HTTP 실패·재시도·빈 파일, 비후보 좌표 결측, 타일 실패 중 마커·선택 유지도 통과했다.
+- 데스크톱 1536px, 모바일 390px 스크린샷을 확인했다. 문서 가로 넘침 없음, 모바일 팝업 지도 경계 안 유지. 처리되지 않은 브라우저 JavaScript 오류 0건.
+- 구성 그룹 레이어 기호의 CSS 클래스는 생성 시 옵션으로 전달하여 개발/프로덕션 렌더링 차이를 해소했다.
+- 최종 캡처: `test-results/zones-desktop.png`, `test-results/zones-mobile.png`. 검증용 서버는 종료하고 로컬 산출물을 유지한다.
