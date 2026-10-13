@@ -1,0 +1,7 @@
+﻿method,radius_m,n_groups,n_multistop,n_singletons,largest_group,max_group_diameter_m
+DBSCAN,300,34,5,29,3,473.7
+DBSCAN,500,22,8,14,7,1254.2
+DBSCAN,800,6,4,2,28,4583.4
+Complete,300,35,5,30,2,286.2
+Complete,500,26,12,14,3,492.3
+Complete,800,18,13,5,5,693.2

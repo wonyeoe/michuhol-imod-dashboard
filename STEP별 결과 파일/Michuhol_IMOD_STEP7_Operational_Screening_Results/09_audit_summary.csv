@@ -1,0 +1,2 @@
+﻿all_station_names,input_candidate_stop_names,candidate_units,multi_zones,single_zones,monthly_days,top6_count,note
+286,40,26,12,14,"{4: 30, 5: 31, 6: 29}",6,Relative-gap and percentile screening only; no observed unmet demand.

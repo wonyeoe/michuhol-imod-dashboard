@@ -1,0 +1,4 @@
+﻿cluster,avg_daily_passengers,avg_daily_operations,passengers_per_operation,temporal_mismatch,low_supply_hour_ratio_lt1avg,weekend_weekday_demand_ratio,unique_route_count,demand_cv_hour_profile
+0,77.5328,162.7953,0.5062,0.2887,0.2222,0.5493,2.0196,1.0733
+1,5497.0317,1568.4175,4.2994,0.1919,0.1667,0.6448,16.2857,0.7223
+2,586.4385,613.934,0.9642,0.1796,0.1876,0.636,5.9371,0.778

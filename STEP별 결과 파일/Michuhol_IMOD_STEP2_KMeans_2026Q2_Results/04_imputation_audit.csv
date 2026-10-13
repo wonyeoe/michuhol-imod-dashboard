@@ -1,0 +1,17 @@
+﻿set,log1p,outlier_policy,n,missing_avg_daily_passengers,missing_avg_daily_operations,missing_passengers_per_operation,missing_temporal_mismatch,missing_low_supply_hour_ratio_lt1avg,missing_weekend_weekday_demand_ratio,missing_unique_route_count,missing_demand_cv_hour_profile
+A_기준5,False,전체286,286,0,0,0,0.0,0,,,
+A_기준5,False,극단값제외,285,0,0,0,0.0,0,,,
+A_기준5,True,전체286,286,0,0,0,0.0,0,,,
+A_기준5,True,극단값제외,285,0,0,0,0.0,0,,,
+B_요일추가6,False,전체286,286,0,0,0,0.0,0,0.0,,
+B_요일추가6,False,극단값제외,285,0,0,0,0.0,0,0.0,,
+B_요일추가6,True,전체286,286,0,0,0,0.0,0,0.0,,
+B_요일추가6,True,극단값제외,285,0,0,0,0.0,0,0.0,,
+C_노선추가7,False,전체286,286,0,0,0,0.0,0,0.0,2.0,
+C_노선추가7,False,극단값제외,285,0,0,0,0.0,0,0.0,2.0,
+C_노선추가7,True,전체286,286,0,0,0,0.0,0,0.0,2.0,
+C_노선추가7,True,극단값제외,285,0,0,0,0.0,0,0.0,2.0,
+D_CV대체7,False,전체286,286,0,0,0,,0,0.0,2.0,0.0
+D_CV대체7,False,극단값제외,285,0,0,0,,0,0.0,2.0,0.0
+D_CV대체7,True,전체286,286,0,0,0,,0,0.0,2.0,0.0
+D_CV대체7,True,극단값제외,285,0,0,0,,0,0.0,2.0,0.0

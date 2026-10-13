@@ -1,0 +1,10 @@
+{
+  "n_stops": 286,
+  "total_experiments": 96,
+  "route_missing": 2,
+  "extreme_mask_count": 1,
+  "baseline": "('A_기준5', False, '전체286', 3)",
+  "silhouette_best_eligible": "('A_기준5', False, '전체286', 3)",
+  "method": "KMeans random_state=42 n_init=10 StandardScaler, with explicit imputation/log/outlier sensitivity",
+  "caution": "High silhouette is not proof of transit shortage or I-MOD feasibility."
+}

@@ -1,0 +1,13 @@
+﻿scenario,top20_overlap_count,top20_jaccard
+median__base,20,1.0
+p25__base,13,0.48148148148148145
+median__balanced,13,0.48148148148148145
+median__time_priority,13,0.48148148148148145
+p25__balanced,11,0.3793103448275862
+all__balanced,11,0.3793103448275862
+all__base,11,0.3793103448275862
+all__demand_priority,10,0.3333333333333333
+p25__demand_priority,10,0.3333333333333333
+median__demand_priority,10,0.3333333333333333
+p25__time_priority,5,0.14285714285714285
+all__time_priority,1,0.02564102564102564

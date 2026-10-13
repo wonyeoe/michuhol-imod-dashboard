@@ -1,0 +1,10 @@
+﻿item,value
+total_stop_groups,286
+geocoded_stop_groups,249
+spatially_unresolved,37
+eligible_geocoded_top_pool,40
+complete_500_multi_zones,12
+complete_500_singletons,14
+complete_500_max_diameter,492.3
+spatial_method_note,Haversine straight-line distance; not walk network travel distance
+inference_note,Spatial screening only; no measured unmet demand or I-MOD effect

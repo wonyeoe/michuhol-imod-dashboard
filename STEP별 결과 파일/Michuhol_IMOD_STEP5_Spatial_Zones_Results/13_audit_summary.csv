@@ -1,0 +1,9 @@
+﻿check,value
+all_stops,286
+geocodable_stops,249
+non_geocodable_stops,37
+median_demand_eligible,143
+base_pool_size,40
+base_multi_stop_zone_count,8
+base_singletons,14
+monthly_observed_days,"{'2026-04': 30, '2026-05': 31, '2026-06': 29}"

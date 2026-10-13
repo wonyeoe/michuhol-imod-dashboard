@@ -1,0 +1,4 @@
+﻿scenario,cutoff,eligible_count
+all_286,0.0,286
+demand_ge_p25,77.29999975,214
+demand_ge_median,266.811111,143

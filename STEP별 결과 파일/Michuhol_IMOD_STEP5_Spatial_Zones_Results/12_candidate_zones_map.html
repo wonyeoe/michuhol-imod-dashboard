@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_03dcff411eb913e81bd6c4e1c7990b2e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_03dcff411eb913e81bd6c4e1c7990b2e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_03dcff411eb913e81bd6c4e1c7990b2e = L.map(
+                "map_03dcff411eb913e81bd6c4e1c7990b2e",
+                {
+                    center: [37.4536969325, 126.66662819000001],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1a96ad0904daaeacbc86626ab09d10f3 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1a96ad0904daaeacbc86626ab09d10f3.addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var circle_marker_6192457a31ab8a5e5ecdc252e1afc1b1 = L.circleMarker(
+                [37.4653745, 126.656299],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_6192457a31ab8a5e5ecdc252e1afc1b1.bindTooltip(
+                `<div>
+                     남중학교 | R500_N40_C00 | rank 3 | repeat 3/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3cbe5dca7b73c11927ab7e7cddd0da2b = L.circleMarker(
+                [37.443106, 126.701493],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_3cbe5dca7b73c11927ab7e7cddd0da2b.bindTooltip(
+                `<div>
+                     롯데백화점(인천터미널) | R500_N40_C01 | rank 5 | repeat 3/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9f57b809453120d0992984ef9d1a3546 = L.circleMarker(
+                [37.438335, 126.691498],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.8, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_9f57b809453120d0992984ef9d1a3546.bindTooltip(
+                `<div>
+                     문학경기장(야구장) | R500_N40_C02 | rank 7 | repeat 2/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_df423416c3a70151a8a9b6629167d8bf = L.circleMarker(
+                [37.463625, 126.6810083],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_df423416c3a70151a8a9b6629167d8bf.bindTooltip(
+                `<div>
+                     주안역 | R500_N40_C03 | rank 10 | repeat 3/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_57e2036dbac52b3d641e2a2003ce007e = L.circleMarker(
+                [37.438578, 126.6823775],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_57e2036dbac52b3d641e2a2003ce007e.bindTooltip(
+                `<div>
+                     문학초등학교 | R500_N40_C04 | rank 12 | repeat 3/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_75c79b36e3735fcf1b4d2576cde0b42f = L.circleMarker(
+                [37.4564425, 126.6515775],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_75c79b36e3735fcf1b4d2576cde0b42f.bindTooltip(
+                `<div>
+                     용현3동행정복지센터.보훈병원 | R500_N40_C05 | rank 13 | repeat 3/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_80154983ca9e19d9da34ebad3aedd74f = L.circleMarker(
+                [37.450429, 126.6384575],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.8, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_80154983ca9e19d9da34ebad3aedd74f.bindTooltip(
+                `<div>
+                     한양아파트 | R500_N40_C06 | rank 15 | repeat 2/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e58017e1b53731637d4a14f0008fa4ff = L.circleMarker(
+                [37.4481875, 126.6775055],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_e58017e1b53731637d4a14f0008fa4ff.bindTooltip(
+                `<div>
+                     주안7동행정복지센터 | R500_N40_C07 | rank 18 | repeat 3/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1986449f1477aedb1f628ab0d4d21395 = L.circleMarker(
+                [37.4476135, 126.6793615],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.8, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_1986449f1477aedb1f628ab0d4d21395.bindTooltip(
+                `<div>
+                     신기.남부종합시장(진흥사거리) | R500_N40_C07 | rank 19 | repeat 2/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_548451957608719ed717468d6e2105cf = L.circleMarker(
+                [37.441794, 126.649707],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_548451957608719ed717468d6e2105cf.bindTooltip(
+                `<div>
+                     시티오씨엘4단지 | R500_N40_C08 | rank 21 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_644eb741b88f44bc7d2397bc63f06b45 = L.circleMarker(
+                [37.4487185, 126.669862],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_644eb741b88f44bc7d2397bc63f06b45.bindTooltip(
+                `<div>
+                     인천소방본부 | R500_N40_C09 | rank 23 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d876ee3f179285040835f5495c63117e = L.circleMarker(
+                [37.464275, 126.648333],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_d876ee3f179285040835f5495c63117e.bindTooltip(
+                `<div>
+                     숭의보건지소 | R500_N40_C10 | rank 25 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6e33675e495cdc388a73199519c6f281 = L.circleMarker(
+                [37.449799, 126.649715],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_6e33675e495cdc388a73199519c6f281.bindTooltip(
+                `<div>
+                     인하대역4번출구 | R500_N40_C08 | rank 27 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b2b0bb440b61df9ab235e5e7ccd22956 = L.circleMarker(
+                [37.451851, 126.6493665],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_b2b0bb440b61df9ab235e5e7ccd22956.bindTooltip(
+                `<div>
+                     용현고가교 | R500_N40_C08 | rank 30 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_03e1df431fcb174dcc6921a87726c268 = L.circleMarker(
+                [37.452433, 126.6897725],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_03e1df431fcb174dcc6921a87726c268.bindTooltip(
+                `<div>
+                     인천고등학교 | R500_N40_C11 | rank 31 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_def9331cfc32ba1f9733a188b7396ce4 = L.circleMarker(
+                [37.4544045, 126.669202],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_def9331cfc32ba1f9733a188b7396ce4.bindTooltip(
+                `<div>
+                     인천기계공고 | R500_N40_C12 | rank 34 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c824149164c25fb301ca3f149253c30f = L.circleMarker(
+                [37.4770345, 126.654211],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_c824149164c25fb301ca3f149253c30f.bindTooltip(
+                `<div>
+                     송림고개(도화신동아아파트) | R500_N40_C13 | rank 39 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8dca7843817cbae9e3d1a069dfacc11e = L.circleMarker(
+                [37.452521, 126.645316],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_8dca7843817cbae9e3d1a069dfacc11e.bindTooltip(
+                `<div>
+                     굴다리 | R500_N40_C08 | rank 42 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ce7ca34ad8b59fec43ecd8a6a6dc1f88 = L.circleMarker(
+                [37.4430515, 126.6914515],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_ce7ca34ad8b59fec43ecd8a6a6dc1f88.bindTooltip(
+                `<div>
+                     관교중학교(약수터) | R500_N40_C14 | rank 43 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8d9012aa404beea33ad12f18c2627f9d = L.circleMarker(
+                [37.447105, 126.6538185],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_8d9012aa404beea33ad12f18c2627f9d.bindTooltip(
+                `<div>
+                     인하대정문 | R500_N40_C08 | rank 45 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b787a3fee28ca346f2d3c6bb313b4166 = L.circleMarker(
+                [37.4526705, 126.6662495],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_b787a3fee28ca346f2d3c6bb313b4166.bindTooltip(
+                `<div>
+                     용남시장 | R500_N40_C12 | rank 46 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e6603a5478b318d33dbbd39876141679 = L.circleMarker(
+                [37.447667, 126.650378],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_e6603a5478b318d33dbbd39876141679.bindTooltip(
+                `<div>
+                     인하대역(7번출구) | R500_N40_C08 | rank 48 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b60b2265a5ea4bc0360063c6f2d3ccb = L.circleMarker(
+                [37.451929, 126.637854],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_2b60b2265a5ea4bc0360063c6f2d3ccb.bindTooltip(
+                `<div>
+                     토지금고시장 | R500_N40_C06 | rank 50 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_99ba1d178235df40127e69ec748597b1 = L.circleMarker(
+                [37.4624055, 126.6897655],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_99ba1d178235df40127e69ec748597b1.bindTooltip(
+                `<div>
+                     인천가정법원.인천지방법원등기국 | R500_N40_C15 | rank 52 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5b753331bc616e56830fee77c35b3216 = L.circleMarker(
+                [37.460029, 126.694279],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_5b753331bc616e56830fee77c35b3216.bindTooltip(
+                `<div>
+                     KT인천지사 | R500_N40_C15 | rank 53 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0eef5d99bddb97d71231e6b0f31ac34a = L.circleMarker(
+                [37.4512523, 126.6833053],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_0eef5d99bddb97d71231e6b0f31ac34a.bindTooltip(
+                `<div>
+                     주안남초등학교 | R500_N40_C07 | rank 56 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ef455498d8593b7c5dd20afeb3a04510 = L.circleMarker(
+                [37.444647, 126.6471135],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_ef455498d8593b7c5dd20afeb3a04510.bindTooltip(
+                `<div>
+                     힐스테이트학익104동앞 | R500_N40_C08 | rank 57 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ef93a2dfdd74d27d67d3bdd24ef815f8 = L.circleMarker(
+                [37.4643845, 126.6800055],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_ef93a2dfdd74d27d67d3bdd24ef815f8.bindTooltip(
+                `<div>
+                     주안역환승정류장 | R500_N40_C03 | rank 58 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a55243c1b348608979b7e457bd3c2b83 = L.circleMarker(
+                [37.467727, 126.679577],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_a55243c1b348608979b7e457bd3c2b83.bindTooltip(
+                `<div>
+                     공단시장 | R500_N40_C03 | rank 61 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ec7f79addc80ac230be59f2c7c3a3d39 = L.circleMarker(
+                [37.4683935, 126.6523385],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_ec7f79addc80ac230be59f2c7c3a3d39.bindTooltip(
+                `<div>
+                     인화여고 | R500_N40_C00 | rank 62 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4ac79fb8b9573609c1770b073fa68702 = L.circleMarker(
+                [37.4555325, 126.657171],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_4ac79fb8b9573609c1770b073fa68702.bindTooltip(
+                `<div>
+                     독정이고개 | R500_N40_C16 | rank 63 | repeat 1/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5878d839d29776c5e2ce35e35bd833d3 = L.circleMarker(
+                [37.453117, 126.680048],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_5878d839d29776c5e2ce35e35bd833d3.bindTooltip(
+                `<div>
+                     힐스테이트푸르지오주안 | R500_N40_C07 | rank 68 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_04ad39ae2f67bdb877a2534e8ad94b79 = L.circleMarker(
+                [37.461095, 126.6453785],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_04ad39ae2f67bdb877a2534e8ad94b79.bindTooltip(
+                `<div>
+                     숭의교회 | R500_N40_C10 | rank 70 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_95408cb4dc3f30f3618f741a0345e282 = L.circleMarker(
+                [37.44122, 126.668036],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_95408cb4dc3f30f3618f741a0345e282.bindTooltip(
+                `<div>
+                     법원.검찰청 | R500_N40_C17 | rank 71 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a908e64a3cdaee77ebbb5780a3fd763 = L.circleMarker(
+                [37.467324, 126.675645],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_1a908e64a3cdaee77ebbb5780a3fd763.bindTooltip(
+                `<div>
+                     태화아파트 | R500_N40_C03 | rank 72 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_88b1174fd8597c7bdf76d1b99fbf3577 = L.circleMarker(
+                [37.475185, 126.660841],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_88b1174fd8597c7bdf76d1b99fbf3577.bindTooltip(
+                `<div>
+                     서화초등학교(도화역금강펜테리움) | R500_N40_C18 | rank 76 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8f0b43c562c0bf5297b1117a56e0a923 = L.circleMarker(
+                [37.443065, 126.656377],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_8f0b43c562c0bf5297b1117a56e0a923.bindTooltip(
+                `<div>
+                     두산위브아파트 | R500_N40_C19 | rank 77 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bc4911d40a7d8a19ec1d3b16e7fdc33f = L.circleMarker(
+                [37.4503375, 126.6598045],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_bc4911d40a7d8a19ec1d3b16e7fdc33f.bindTooltip(
+                `<div>
+                     정석항공과학고 | R500_N40_C20 | rank 78 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_62c56594e73d731dab766456b5372eef = L.circleMarker(
+                [37.451312, 126.677737],
+                {"bubblingMouseEvents": true, "color": "#C46D18", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C46D18", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_62c56594e73d731dab766456b5372eef.bindTooltip(
+                `<div>
+                     국민건강보험남부지사 | R500_N40_C07 | rank 83 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_57a5b100db91200165d92456b21dbe41 = L.circleMarker(
+                [37.443906, 126.672891],
+                {"bubblingMouseEvents": true, "color": "#3864B3", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3864B3", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0, "stroke": true, "weight": 3}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            circle_marker_57a5b100db91200165d92456b21dbe41.bindTooltip(
+                `<div>
+                     연학초등학교 | R500_N40_C21 | rank 85 | repeat 0/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f499e48f3f3c625e9936ef5a29795f61 = L.marker(
+                [37.450296460000004, 126.67959146000001],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_40b8bcb08529a56a50880a45624f374c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_f499e48f3f3c625e9936ef5a29795f61.bindTooltip(
+                `<div>
+                     R500_N40_C07 / 5 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f499e48f3f3c625e9936ef5a29795f61.setIcon(icon_40b8bcb08529a56a50880a45624f374c);
+            
+    
+            var marker_d8ec4c507883a31c160b7c6df8b645c6 = L.marker(
+                [37.466884, 126.65431875],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_7ee70162bceaa8eb175e4500c9a3299c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_d8ec4c507883a31c160b7c6df8b645c6.bindTooltip(
+                `<div>
+                     R500_N40_C00 / 2 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d8ec4c507883a31c160b7c6df8b645c6.setIcon(icon_7ee70162bceaa8eb175e4500c9a3299c);
+            
+    
+            var marker_dedae2baf39af73c8fc311f3b6e21687 = L.marker(
+                [37.451178999999996, 126.63815575000001],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_ad8f57d3201b8161081084bc0f65ed8a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_dedae2baf39af73c8fc311f3b6e21687.bindTooltip(
+                `<div>
+                     R500_N40_C06 / 2 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dedae2baf39af73c8fc311f3b6e21687.setIcon(icon_ad8f57d3201b8161081084bc0f65ed8a);
+            
+    
+            var marker_4615e524d37af0c96212436ba20f099b = L.marker(
+                [37.465765125, 126.67905895],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_f0fe56a43afe3a56e3f0e0d90af326e0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_4615e524d37af0c96212436ba20f099b.bindTooltip(
+                `<div>
+                     R500_N40_C03 / 4 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4615e524d37af0c96212436ba20f099b.setIcon(icon_f0fe56a43afe3a56e3f0e0d90af326e0);
+            
+    
+            var marker_03a907522d1e4c93342ee44c8c180663 = L.marker(
+                [37.447911999999995, 126.64934492857142],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_d466788c99cf0f11ba504040fb700b78 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_03a907522d1e4c93342ee44c8c180663.bindTooltip(
+                `<div>
+                     R500_N40_C08 / 7 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_03a907522d1e4c93342ee44c8c180663.setIcon(icon_d466788c99cf0f11ba504040fb700b78);
+            
+    
+            var marker_9334cf66b4f46c3880b04f6e9dff7dfa = L.marker(
+                [37.4535375, 126.66772575],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_83849a024fb97159921cf60cade969a8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_9334cf66b4f46c3880b04f6e9dff7dfa.bindTooltip(
+                `<div>
+                     R500_N40_C12 / 2 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9334cf66b4f46c3880b04f6e9dff7dfa.setIcon(icon_83849a024fb97159921cf60cade969a8);
+            
+    
+            var marker_6c777a970dd9aa54c0ff6d028c625c4d = L.marker(
+                [37.462685, 126.64685575],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_58af5326230cddc368319c2f2f8587ed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_6c777a970dd9aa54c0ff6d028c625c4d.bindTooltip(
+                `<div>
+                     R500_N40_C10 / 2 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6c777a970dd9aa54c0ff6d028c625c4d.setIcon(icon_58af5326230cddc368319c2f2f8587ed);
+            
+    
+            var marker_c1bcd95cf2b190d32287d855798c31f7 = L.marker(
+                [37.461217250000004, 126.69202225],
+                {
+}
+            ).addTo(map_03dcff411eb913e81bd6c4e1c7990b2e);
+        
+    
+            var icon_c25d75d76e78b19b44c87778b0a1c952 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_c1bcd95cf2b190d32287d855798c31f7.bindTooltip(
+                `<div>
+                     R500_N40_C15 / 2 stops
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c1bcd95cf2b190d32287d855798c31f7.setIcon(icon_c25d75d76e78b19b44c87778b0a1c952);
+            
+</script>
+</html>

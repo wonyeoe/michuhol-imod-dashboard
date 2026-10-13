@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+dist/
+.env
+.env.*
+
+# Python
+__pycache__/
+.venv/
+
+# 원본 데이터 및 대용량 시간대 데이터
+dataset_raw/
+dataset/04_StopGroup_Hourly_2026Q2.csv
+
+# 임시 파일
+*.log
