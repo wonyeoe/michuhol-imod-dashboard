@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  font-family: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+  color: #1e293b; background: #f6f8fb; font-synthesis: none; text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  --background: #f6f8fb; --foreground: #1e293b; --card: #ffffff; --card-foreground: #1e293b;
+  --primary: #2563eb; --primary-foreground: #ffffff; --muted: #f1f5f9; --muted-foreground: #64748b;
+  --accent: #eff6ff; --accent-foreground: #1d4ed8; --border: #e5eaf0; --input: #e2e8f0; --ring: #3b82f6;
+}
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+}
+@layer base {
+  * { border-color: var(--border); }
+  body { margin: 0; min-width: 360px; }
+  button, a, summary { -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), summary { cursor: pointer; }
+  a, button, summary { touch-action: manipulation; }
+  button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #3b82f6; outline-offset: 3px; }
+  ::selection { background: #dbeafe; }
+}
+@layer components {
+  .sidebar { @apply invisible fixed inset-y-0 left-0 z-50 flex w-[232px] -translate-x-full flex-col border-r border-border bg-white px-4 pb-6 pt-7 transition-transform lg:visible lg:translate-x-0; }
+  .sidebar-open { @apply visible translate-x-0; }
+  .brand { @apply flex items-center gap-2.5 px-2 no-underline; }
+  .brand strong { @apply block text-[19px] tracking-tight; }
+  .brand small { @apply mt-1 block text-[10px] tracking-wide text-slate-400; }
+  .brand-symbol { @apply flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm; }
+  .workspace-label { @apply mb-8 mt-8 flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-[10px] font-medium tracking-wider text-slate-500; }
+  .nav-section-label { @apply mb-3 px-3 text-[10px] font-medium tracking-wide text-slate-400; }
+  .nav-link { @apply flex min-h-11 items-center gap-3 rounded-lg px-3 py-3 text-[12px] font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-800; }
+  .nav-link-active { @apply bg-blue-50 text-blue-600 hover:bg-blue-50 hover:text-blue-600; }
+  .nav-soon { @apply ml-auto text-[9px] font-normal text-slate-400; }
+  .sidebar-bottom { @apply mt-auto px-1 pt-10; }
+  .topbar { @apply flex h-[68px] items-center justify-between gap-3 border-b border-border bg-white/90 px-4 sm:px-8 lg:px-9; }
+  .page-intro { @apply flex flex-col items-start justify-between gap-5 lg:flex-row lg:items-center; }
+  .page-intro h1 { @apply text-[23px] font-bold leading-snug tracking-[-0.04em] text-slate-800 sm:text-[27px]; }
+  .stat-card { @apply border-t-[3px] border-t-white px-4 py-5 sm:px-5; }
+  .stat-card-accent { @apply border-t-blue-500 bg-gradient-to-br from-white to-blue-50/50; }
+  .section-heading { @apply mb-4 flex items-center justify-between gap-4; }
+  .section-heading h2 { @apply text-[16px] font-bold tracking-tight text-slate-800; }
+  .section-heading p { @apply mt-1.5 text-[12px] leading-relaxed text-slate-500; }
+  .map-wrapper { @apply relative isolate h-[470px] overflow-hidden bg-[#e9eef0]; }
+  .candidate-map { width: 100%; height: 100%; z-index: 0; font-family: inherit; background-color: #e9eef0; }
+  .candidate-item { @apply flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left transition-colors hover:bg-slate-50; }
+  .candidate-item-selected { @apply bg-blue-50/70 shadow-[inset_3px_0_0_#2563eb] hover:bg-blue-50; }
+  .candidate-rank { @apply mt-3 flex size-7 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-[11px] font-semibold tabular-nums text-slate-500; }
+  .candidate-item-selected .candidate-rank { @apply bg-blue-600 text-white; }
+  .candidate-table { @apply w-full text-left text-xs; }
+  .candidate-table th { @apply whitespace-nowrap border-b border-border bg-slate-50/80 px-4 py-4 text-[10px] font-medium text-slate-500; }
+  .candidate-table td { @apply border-b border-slate-100 px-4 py-3; }
+  .candidate-table tbody tr { @apply transition-colors hover:bg-slate-50; }
+  .candidate-table tbody tr.is-selected { @apply bg-blue-50/50; }
+  .candidate-table tbody tr:last-child td { @apply border-b-0; }
+  .table-rank { @apply flex size-6 items-center justify-center rounded-md bg-slate-100 text-[11px] font-semibold tabular-nums text-slate-500; }
+  .temporal-banner { @apply flex flex-col items-start justify-between gap-5 rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50 to-slate-50 p-6 lg:flex-row lg:items-center; }
+  .skip-link { @apply invisible fixed left-4 top-4 z-[2000] rounded-lg bg-blue-600 px-4 py-3 text-white focus:visible; }
+}
+.candidate-marker { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid white; background: #fff; color: #2563eb; box-shadow: 0 2px 10px #0f172a35; font-size: 14px; font-weight: 700; position: relative; transition: background .15s; }
+.candidate-marker::before { content: ''; position: absolute; inset: 0; border: 1px solid #93b9f5; border-radius: 50%; }
+.candidate-marker small { position: absolute; top: 38px; color: #334155; font-size: 10px; background: #fffffff0; border-radius: 4px; padding: 1px 5px; line-height: 16px; box-shadow: 0 1px 4px #0f172a12; }
+.candidate-marker.is-selected { background: #2563eb; color: #fff; box-shadow: 0 0 0 5px #2563eb20, 0 3px 12px #0f172a35; }
+.candidate-marker.is-selected::before { border-color: #2563eb; }
+.candidate-marker.is-selected small { color: #1d4ed8; }
+.leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 6px 25px #0f172a20; }
+.leaflet-popup-content { margin: 16px 20px; font-family: inherit; }
+.leaflet-container a.leaflet-popup-close-button { top: 5px; right: 5px; color: #94a3b8; }
+.map-popup dd { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.leaflet-control-attribution { font-size: 9px !important; }
+.leaflet-bar { border: 1px solid #e2e8f0 !important; border-radius: 8px !important; overflow: hidden; box-shadow: 0 2px 6px #0f172a10 !important; }
+@media (max-width: 639px) { .map-wrapper { height: 390px; } .section-heading { align-items: flex-start; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
