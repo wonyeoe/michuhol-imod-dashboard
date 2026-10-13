@@ -13,7 +13,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "pretest": "npm run data:sync",
     "test": "vitest run",
-    "test:browser": "node tests/browser.mjs"
+    "test:browser": "node tests/browser.mjs && node tests/temporal-browser.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",

@@ -33,7 +33,8 @@ try {
   for (const [path, title] of [['temporal', '시간대별 분석'], ['zones', '후보 권역 탐색'], ['analysis', 'AI 분석 및 선정 근거']]) {
     await page.getByRole('navigation', { name: '주 메뉴' }).getByRole('link', { name: new RegExp(title) }).click()
     await expect(page).toHaveURL(`${baseURL}/${path}`)
-    await expect(page.getByRole('heading', { name: '분석 화면을 준비하고 있습니다' })).toBeVisible()
+    if (path === 'temporal') await expect(page.getByTestId('temporal-Z06')).toBeVisible()
+    else await expect(page.getByRole('heading', { name: '분석 화면을 준비하고 있습니다' })).toBeVisible()
     await page.reload()
     await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible()
   }

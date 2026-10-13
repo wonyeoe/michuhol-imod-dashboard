@@ -62,7 +62,7 @@ describe('최종 분석 CSV와 화면 데이터 계약', () => {
     expect(parseCsv('\uFEFFstation_name,stop_group_id,observed_days\n"이름, 쉼표",SG001,90\n', 'groups')[0].station_name).toBe('이름, 쉼표')
     expect(() => parseCsv('<!doctype html><html>not csv</html>', 'groups')).toThrow(DataValidationError)
   })
-  it('배포용 복사본 6개가 원본 바이트 및 manifest 해시와 일치한다', () => {
+  it('모든 배포용 복사본이 원본 바이트 및 manifest 해시와 일치한다', () => {
     const manifest = JSON.parse(readFileSync(new URL('../public/data/manifest.json', import.meta.url), 'utf8'))
     for (const item of manifest.sources) {
       const original = readFileSync(root + item.source)

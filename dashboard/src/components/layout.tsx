@@ -39,7 +39,7 @@ export function Layout() {
       <p className="nav-section-label">데이터 대시보드</p>
       <nav aria-label="주 메뉴" className="flex flex-col gap-1.5">
         {navigation.map(({ path, label, icon: Icon }, index) => <NavLink key={path} to={path} end={path === '/'} onClick={() => setOpen(false)} className={({ isActive }) => cn('nav-link', isActive && 'nav-link-active')}>
-          <Icon size={18} /><span>{label}</span>{index > 0 && <span className="nav-soon">예정</span>}
+          <Icon size={18} /><span>{label}</span>{index > 1 && <span className="nav-soon">예정</span>}
         </NavLink>)}
       </nav>
       <div className="sidebar-bottom">

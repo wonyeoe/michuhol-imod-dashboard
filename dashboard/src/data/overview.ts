@@ -8,13 +8,14 @@ export class EmptyDataError extends Error { name = 'EmptyDataError' }
 function check(condition: unknown, message: string): asserts condition {
   if (!condition) throw new DataValidationError(message)
 }
-export function parseCsv(text: string, key: SourceKey): CsvRow[] {
+export function parseTable(text: string, source: { title: string; columns: string[] }): CsvRow[] {
   const result = Papa.parse<CsvRow>(text.replace(/^\uFEFF/, ''), { header: true, skipEmptyLines: 'greedy' })
-  check(result.errors.length === 0, `${DATA_SOURCES[key].title}: CSV 형식을 확인해 주세요.`)
+  check(result.errors.length === 0, `${source.title}: CSV 형식을 확인해 주세요.`)
   const fields = result.meta.fields ?? []
-  check(DATA_SOURCES[key].columns.every((column) => fields.includes(column)), `${DATA_SOURCES[key].title}: 필수 컬럼이 없습니다.`)
+  check(source.columns.every((column) => fields.includes(column)), `${source.title}: 필수 컬럼이 없습니다.`)
   return result.data
 }
+export function parseCsv(text: string, key: SourceKey): CsvRow[] { return parseTable(text, DATA_SOURCES[key]) }
 function number(row: CsvRow, field: string, integer = false): number {
   const value = row[field]
   check(value !== undefined && value.trim() !== '', `${row.zone_id ?? row.station_name ?? '분석 자료'}: ${field} 값이 없습니다.`)
@@ -86,12 +87,13 @@ export function buildOverview(tables: SourceTables): OverviewData {
   return { summary: { groupCount: groups.length, observedDays, zoneCount: profiles.length, candidateCount: result.length }, candidates: result }
 }
 
-export async function loadOverview(signal: AbortSignal): Promise<OverviewData> {
+export async function loadOverviewTables(signal: AbortSignal): Promise<SourceTables> {
   const entries = await Promise.all((Object.keys(DATA_SOURCES) as SourceKey[]).map(async (key) => {
     const source = DATA_SOURCES[key]
     const response = await fetch(`${import.meta.env.BASE_URL}data/${source.file}`, { signal })
     if (!response.ok) throw new Error(`${source.title}을 불러오지 못했습니다. (HTTP ${response.status})`)
     return [key, parseCsv(await response.text(), key)] as const
   }))
-  return buildOverview(Object.fromEntries(entries) as SourceTables)
+  return Object.fromEntries(entries) as SourceTables
 }
+export async function loadOverview(signal: AbortSignal): Promise<OverviewData> { return buildOverview(await loadOverviewTables(signal)) }

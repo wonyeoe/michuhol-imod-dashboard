@@ -16,12 +16,18 @@ const sources = [
   ['zone-scores.csv', `${step7}/04_all_26_zones_scenario_scores.csv`],
   ['top6.csv', `${step7}/05_provisional_top6_review.csv`],
   ['audit.csv', `${step7}/09_audit_summary.csv`],
+  ['hourly-zone-shares.csv', `${step7}/03_hourly_zone_shares.csv`],
+  ['monthly-zone-profiles.csv', `${step7}/02_monthly_zone_profiles.csv`],
 ]
 // Read every source first: missing inputs cannot produce a half-updated data snapshot.
 const inputs = await Promise.all(sources.map(async ([file, source]) => ({ file, source, bytes: await readFile(path.join(root, source)) })))
 await mkdir(output, { recursive: true })
-for (const input of inputs) await writeFile(path.join(output, input.file), input.bytes)
-await writeFile(path.join(output, 'manifest.json'), JSON.stringify({
+async function writeChanged(file, bytes) {
+  const previous = await readFile(file).catch((error) => { if (error.code !== 'ENOENT') throw error; return null })
+  if (!previous?.equals(Buffer.from(bytes))) await writeFile(file, bytes)
+}
+for (const input of inputs) await writeChanged(path.join(output, input.file), input.bytes)
+await writeChanged(path.join(output, 'manifest.json'), JSON.stringify({
   analysisVersion: '2026Q2-step6-complete500-step7-final',
   sources: inputs.map(({ file, source, bytes }) => ({ file, source, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') })),
 }, null, 2) + '\n')
