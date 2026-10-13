@@ -18,6 +18,11 @@ const sources = [
   ['audit.csv', `${step7}/09_audit_summary.csv`],
   ['hourly-zone-shares.csv', `${step7}/03_hourly_zone_shares.csv`],
   ['monthly-zone-profiles.csv', `${step7}/02_monthly_zone_profiles.csv`],
+  ['cluster-assignments.csv', 'STEP별 결과 파일/Michuhol_IMOD_STEP3_Interpretation_Results/02_station_assignments_286.csv'],
+  ['cluster-profiles.csv', 'STEP별 결과 파일/Michuhol_IMOD_STEP3_Interpretation_Results/03_cluster_profiles_KMeans_FULL8.csv'],
+  ['model-metrics.csv', 'STEP별 결과 파일/Michuhol_IMOD_STEP3_Interpretation_Results/01_candidate_model_metrics.csv'],
+  ['eligibility.csv', 'STEP별 결과 파일/Michuhol_IMOD_STEP4_Candidate_Screening_Results/01_eligibility_summary.csv'],
+  ['spatial-comparison.csv', `${step6}/01_algorithm_radius_comparison.csv`],
 ]
 // Read every source first: missing inputs cannot produce a half-updated data snapshot.
 const inputs = await Promise.all(sources.map(async ([file, source]) => ({ file, source, bytes: await readFile(path.join(root, source)) })))

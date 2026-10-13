@@ -35,7 +35,7 @@ try {
     await expect(page).toHaveURL(`${baseURL}/${path}`)
     if (path === 'temporal') await expect(page.getByTestId('temporal-Z06')).toBeVisible()
     else if (path === 'zones') await expect(page.getByTestId('zone-list-Z06')).toBeVisible()
-    else await expect(page.getByRole('heading', { name: '분석 화면을 준비하고 있습니다' })).toBeVisible()
+    else await expect(page.getByTestId('analysis-summary')).toBeVisible()
     await page.reload()
     await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible()
   }

@@ -1,4 +1,4 @@
-# I-MOD 인사이트 — 종합 현황·시간대별 분석·후보 권역 탐색
+# I-MOD 인사이트 — 버스 데이터 기반 후보 권역 분석 대시보드
 
 인천 미추홀구 버스 승차·운행 데이터 기반 I-MOD 예비 검토 후보 대시보드다. 기존 STEP 1~7 분석 결과를 재학습·재산정하지 않고 사용한다.
 
@@ -23,7 +23,7 @@ npm run preview
 
 `build`는 TypeScript 검사 후 `dist/`에 정적 웹 앱을 생성한다. `preview` 기본 주소는 `http://127.0.0.1:4173`이다. 백엔드·데이터베이스·지도 API 키는 사용하지 않는다.
 
-`predev`, `prebuild`, `pretest`는 필요한 CSV 8개를 `public/data/`로 자동 동기화한다. 같은 바이트의 파일은 다시 쓰지 않는다. 원본 파일과 상대 경로가 있는 **저장소 전체**에서 실행해야 한다. `dashboard/`만 별도로 복사하면 데이터 동기화에 실패한다. 운영 시에는 `dist/`만 정적 호스팅하면 된다.
+`predev`, `prebuild`, `pretest`는 필요한 CSV 13개를 `public/data/`로 자동 동기화한다. 같은 바이트의 파일은 다시 쓰지 않는다. 원본 파일과 상대 경로가 있는 **저장소 전체**에서 실행해야 한다. `dashboard/`만 별도로 복사하면 데이터 동기화에 실패한다. 운영 시에는 `dist/`만 정적 호스팅하면 된다.
 
 ## 구현 범위
 
@@ -32,7 +32,7 @@ npm run preview
 | `/` | 프로젝트 소개, 실제 CSV 기반 KPI 4개, 최종 후보 지도·목록·비교표·수요 비교 차트, 시간대별 분석 안내, 데이터 출처 |
 | `/temporal` | 6개 후보 선택, 시간별 비중 선그래프·상대 격차 막대, 월별 일평균·운행 표, 동적 해석·집계 기준 |
 | `/zones` | 26개 권역 지도·필터·검색, 상세 지표·구성 그룹, 최종 6개와 비교 |
-| `/analysis` | 라우팅과 후속 개발 안내 |
+| `/analysis` | STEP 1~7 과정, 군집 분포, STEP 4 시나리오·공간 방법 비교, 최종 순위 히트맵·선정 근거 |
 | 기타 | 404 안내 |
 
 - 공통 사이드바, 모바일 메뉴, 페이지별 활성 메뉴·문서 제목.
@@ -48,7 +48,7 @@ npm run preview
 - React + TypeScript + Vite
 - Tailwind CSS의 Vite 플러그인
 - shadcn/ui 방식의 로컬 Button/Card/Badge와 `components.json`; Button의 Slot은 Radix 사용
-- Recharts: 최종 6개 후보의 일평균 승차량 가로 막대
+- Recharts: 후보 승차량·시간 분포·상대 격차·월별 비교·군집 분포·시나리오 점수 차트
 - React Leaflet + Leaflet: 실제 좌표 대표점 지도
 - React Router: 4개 페이지와 404
 - Papa Parse: BOM·따옴표·쉼표가 포함된 CSV 파싱
@@ -86,7 +86,7 @@ dashboard/
         data-provenance.tsx          데이터 출처·원본 사본 다운로드
     pages/
       overview-page.tsx              종합 현황
-      placeholder-page.tsx           후속 3페이지·404
+      placeholder-page.tsx           404 안내 (기존 안내 컴포넌트 보존)
   tests/data.test.ts                  실제 CSV 및 결합 오류 테스트
   tests/browser.mjs                   Chrome 헤드리스 동작 검증
   test-results/                       스크린샷·서버 로그, Git 제외
@@ -110,7 +110,7 @@ STEP 7 폴더: `STEP별 결과 파일/Michuhol_IMOD_STEP7_Operational_Screening_
 | STEP 7 `05_provisional_top6_review.csv` | 6 | `top6.csv` | `provisional_review_order`, `zone_id`, `names`, `daily_demand`, `top6_frequency`, `peak_hour`, `n_stops`, `type` |
 | STEP 7 `09_audit_summary.csv` | 1 | `audit.csv` | 그룹·공간 단위·후보 수 및 월별 관측일 교차검증 |
 
-시간·월별 CSV를 포함한 총 용량은 196,925바이트다. 100MiB가 넘는 시간대 원천은 화면에 로드하지 않는다.
+분석 근거 CSV를 포함한 총 용량은 230,015바이트다. 각 페이지는 필요한 파일만 읽으며, 100MiB가 넘는 시간대 원천은 화면에 로드하지 않는다.
 
 ```text
 그룹 특징 ── stop_group_id + station_name 검증 ── STEP 6 membership
@@ -143,7 +143,7 @@ STEP 7 전체 평가 ── 값·순서 교차검증 ── STEP 7 최종 6개
 npm test
 ```
 
-9개 데이터 계약 테스트는 실제 원본 CSV를 읽는다. 최종 값·순서·좌표·구성 그룹, 행 순서 변경 시 조인, 중복 키, 좌표 결측, 그룹 이름 불일치, 최종 결과 불일치, 빈 CSV, CSV 파싱 오류, 복사본 SHA-256을 검증한다.
+38개 데이터 계약 테스트는 실제 원본 CSV와 최종 Notebook을 읽는다. 최종 값·순서·좌표·구성 그룹, 시간·월별 분모, 군집 개수·공간 구성, 설명용 가중치, 중복·누락·잘못된 참조, 빈 CSV, 파싱 오류 및 복사본 SHA-256을 검증한다.
 
 브라우저 검증은 먼저 `npm run dev`를 실행한 터미널을 유지하고 다른 터미널에서 실행한다. 로컬 Google Chrome이 필요하다.
 
@@ -168,7 +168,7 @@ npm run test:browser
 - 타일 요청 차단 시 오류 안내 및 마커·선택 유지
 - 처리되지 않은 브라우저 런타임 오류
 
-스크린샷은 `test-results/overview-desktop.png`, `test-results/overview-mobile.png`에 저장한다.
+스크린샷은 `test-results/`에 페이지별 `overview`, `temporal`, `zones`, `analysis` 접두사와 `-desktop.png`, `-mobile.png` 이름으로 저장한다.
 
 ### 2026-10-13 구현 검증 결과
 
@@ -316,3 +316,77 @@ STEP 6 Notebook을 확인했다. 그룹 대표점 사이의 **Haversine 거리**
 - 데스크톱 1536px, 모바일 390px 스크린샷을 확인했다. 문서 가로 넘침 없음, 모바일 팝업 지도 경계 안 유지. 처리되지 않은 브라우저 JavaScript 오류 0건.
 - 구성 그룹 레이어 기호의 CSS 클래스는 생성 시 옵션으로 전달하여 개발/프로덕션 렌더링 차이를 해소했다.
 - 최종 캡처: `test-results/zones-desktop.png`, `test-results/zones-mobile.png`. 검증용 서버는 종료하고 로컬 산출물을 유지한다.
+
+## 4차 구현: AI 분석 및 선정 근거
+
+`/analysis`는 최종 STEP 1~7의 기존 결과를 설명하는 화면이다. 새로운 분석·학습·후보 선정·점수 계산은 하지 않는다. 기존 디자인과 데이터 계약을 재사용하며, 각 페이지는 라우트별로 지연 로딩한다.
+
+### 화면과 근거
+
+- 실제 규모 카드: 90일, 286개 정류장명 그룹, 26개 평가 권역, 6개 예비 후보. 확장 특징의 대표 좌표로 확보 249/미확보 37개를 검증한다. 6월 11일 제외와 물리 정류장 단위와의 차이를 명시한다.
+- STEP 1~7을 잇는 선택형 프로세스: 각 단계의 목적·방법·실제 결과·다음 단계·한계와 근거 Notebook 파일명을 표시한다. STEP 1은 EDA·상관분석·특성 확장, STEP 2는 K-means 비교이며 STEP 2.5의 군집 진단을 함께 설명한다.
+- STEP 3: KMeans_FULL8 레이블을 집계한 196/65/25개 막대와 비율, 원본 프로필의 군집별 중앙값. GMM_ROUTE6는 별도 비교 모델이며 56/208/22개, PCA 차원·실루엣을 펼쳐 볼 수 있다. 군집 번호는 순위가 아니고 군집 1도 자동 후보가 아니다.
+- STEP 4: 실제 4개 지표의 컬럼·방향·단위 및 가중치 표. 수요 기준 3개(286/214/143개) × 가중치 4개 = 12개 조건으로 설명한다. 전체 286개 안에서 `rank(pct=True, method='average') × 100`으로 정규화한 기존 분석이다. 군집 레이블은 점수 가산에 사용하지 않았다.
+- STEP 5: Haversine DBSCAN, min_samples=1, 20/40/60개 풀과 300/500/800m 비교를 설명한다. 기준 40개·500m의 22개 탐색 단위를 최종 권역과 구분한다. 동일 풀을 비교한 STEP 6의 DBSCAN 최대 지름 1,254.2m는 연쇄 연결의 예로 제시한다.
+- STEP 6: 같은 40개 그룹에서 Complete Linkage 500m 결과 26개(다중 12/단일 14)로 연결한다. 500m는 구성 그룹 대표점 사이의 최대 거리 조건이며 도보권·서비스 반경이 아니다. `/zones` 링크 제공.
+- STEP 7: 최종 6개 × 4개 시나리오 순위 히트맵, 상위 6위 포함 횟수 막대, 실제 순위 중앙값·balanced 점수, 가중치 설명. 전체 26개 점수 차트·표는 펼쳐서 4개 시나리오를 전환한다. 비교 차트는 ID순으로 고정하며 후보를 재선정하지 않는다.
+- 후보별 `/zones?zone=Zxx`, `/temporal?zone=Zxx` 연결. 기존 종합 현황의 분석 과정 링크와 공통 사이드바를 그대로 사용한다.
+- 예비 검토·시간 분포 격차의 한계, OD·운영 시뮬레이션 부재를 상단·관련 단계·하단에서 구분해 설명한다.
+
+### 실제 사용 CSV와 컬럼
+
+기존 브라우저용 `groups.csv`에는 군집 레이블이 없고 `memberships.csv`의 군집 레이블은 공간 후보 40개에 한정된다. 전체 286개를 설명하기 위해 STEP 3 최종 할당 원본을 1개 추가했다. 데이터셋 폴더의 같은 할당 사본을 중복 복사하지 않는다. 다음 5개 작은 근거 파일만 기존 동기화 스크립트에 추가했다.
+
+| 원본 (STEP 결과 폴더) | 행 수 | 배포용 파일 | 사용 컬럼 |
+|---|---:|---|---|
+| STEP 3 `02_station_assignments_286.csv` | 286 | `cluster-assignments.csv` | `station_name`, `stop_group_id`, `KMeans_FULL8`, `GMM_ROUTE6` |
+| STEP 3 `03_cluster_profiles_KMeans_FULL8.csv` | 3 | `cluster-profiles.csv` | `KMeans_FULL8`, `count`, `avg_daily_passengers`, `avg_daily_operations`, `temporal_mismatch` (군집별 중앙값) |
+| STEP 3 `01_candidate_model_metrics.csv` | 2 | `model-metrics.csv` | `model`, `silhouette_in_PCA`, `pca_components`, `cluster_sizes`, `min_cluster` |
+| STEP 4 `01_eligibility_summary.csv` | 3 | `eligibility.csv` | `scenario`, `cutoff`, `eligible_count` |
+| STEP 6 `01_algorithm_radius_comparison.csv` | 6 | `spatial-comparison.csv` | `method`, `radius_m`, `n_groups`, `n_multistop`, `n_singletons`, `max_group_diameter_m`; `largest_group`도 스키마 확인 |
+
+STEP 3 전체 경로는 `STEP별 결과 파일/Michuhol_IMOD_STEP3_Interpretation_Results/`, STEP 4는 `Michuhol_IMOD_STEP4_Candidate_Screening_Results/`, STEP 6은 기존 `Michuhol_IMOD_STEP6_Spatial_Stability_Results/`다. 정확한 원본·사본 매핑은 `src/data/analysis-sources.ts`와 `public/data/manifest.json`에 기록한다.
+
+기존 6개 공통 CSV는 그대로 재사용한다. 확장 특징의 `representative_latitude`·`representative_longitude`로 좌표 확보 그룹 수를 세고, STEP 6 할당·권역 프로필로 40개→26개 및 12/14 구성을 대조한다. STEP 7 전체 평가·최종 후보의 `median_rank`를 추가로 읽고 기존 `score_*`, `rank_*`, `top6_*`, `top6_frequency`, `provisional_review_order`와 함께 표시한다. 정확한 점수·순위 필드는 앞 절의 3차 구현 표와 같다.
+
+`loadOverviewTables` → `buildZones`의 기존 26개 검증을 재사용한다. 군집 할당은 `stop_group_id`로 그룹 마스터와 1:1 대응시키고 `station_name`도 일치해야 한다. 군집 집계와 프로필·모델 지표의 개수를 대조하고, 권역 구성은 STEP 6 비교 결과와 대조한다. 숫자 결측은 0으로 바꾸지 않으며 누락·중복·잘못된 레이블·불일치에 오류를 표시한다.
+
+### 최종 선정 규칙과 재계산 방지
+
+STEP 7 Notebook의 실행 코드는 다음 순서다.
+
+1. `top6_frequency` 내림차순.
+2. `median_rank` 오름차순.
+3. `score_balanced` 내림차순.
+
+화면은 이 기준을 설명하고 CSV의 최종 검토 순서 **Z06 → Z23 → Z10 → Z22 → Z01 → Z02**를 보존한다. `mean_rank`를 동률 해소 기준으로 쓰지 않는다. 후보 여부는 최종 6개 파일로 결정하며, 히트맵은 전체 26개 안에서의 시나리오 순위를 표시한다.
+
+가중치는 CSV에 저장되어 있지 않아 최종 Notebook의 `weights` 딕셔너리를 `analysis-methodology.ts`에 설명용으로 옮겼다. STEP 4는 `demand/mismatch/low_supply/intensity` 4개 지표, STEP 7은 `demand/mismatch/low_supply/repeat/month_stable` 5개 지표다. `p_service_intensity`는 STEP 7 가중합에 사용하지 않는다. 두 단계의 같은 시나리오 이름도 모집단·지표·가중치가 달라 별도 테이블로 표시한다. “16개로 최종 선정”이라고 합치지 않는다.
+
+웹에서는 이 가중치를 점수 계산에 사용하지 않는다. 점수·순위·중앙값은 CSV에서 읽는다. 비율은 군집 개수/286×100, 그룹·권역 수는 기존 결과의 개수이며 순위 중앙값은 기존 값의 검증만 한다. STEP 3 프로필 중앙값도 새로 산출하지 않고 원본을 읽는다.
+
+### 변경 파일과 구현하지 않은 항목
+
+- 생성: `src/data/analysis-sources.ts`, `analysis-methodology.ts`, `analysis.ts`, `src/hooks/use-analysis.ts`, `src/pages/analysis-page.tsx`.
+- 생성: `src/components/analysis/method-sections.tsx`, `cluster-section.tsx`, `selection-section.tsx`.
+- 생성: `tests/analysis.test.ts`, `tests/analysis-browser.mjs`.
+- 수정: `scripts/sync-data.mjs`, `src/App.tsx`, `src/components/layout.tsx`, `tests/browser.mjs`, `package.json`, `README.md`.
+- 자동 생성: 5개 배포 CSV와 manifest, `dist/`, `test-results/analysis-desktop.png`, `analysis-mobile.png`. 기존 Git 제외 규칙을 따른다.
+- 기존 원본 CSV·Notebook·분석 보고서는 변경하지 않았다.
+
+최종 STEP 3 모델의 개별 PC1·PC2 좌표 CSV가 없으므로 PCA 산점도를 생성하지 않았다. STEP 2.5의 다른 전처리 실험 PNG를 최종 좌표로 대신하지도 않았다. OD 추정, 실제 운행 시뮬레이션, 신규 모델·공간 분석, 백엔드·DB는 요청 범위에서 제외했다. 이전 STEP 8 산출물은 읽지 않는다.
+
+실행은 `npm run dev`, 단위 검증은 `npm test`, 빌드는 `npm run build`다. 실행 중인 개발 또는 미리보기 서버를 대상으로 `npm run test:browser`를 실행하면 네 페이지의 검증을 순서대로 수행한다. 다른 주소는 `DASHBOARD_URL` 환경변수로 지정한다.
+
+### 4차 검증 결과 (2026-10-14)
+
+- `npm test`: 총 38개 통과. 기존 30개와 분석 근거 8개를 포함한다.
+- 군집 196/65/25, GMM 56/208/22, 좌표 확보/미확보 249/37, 관측 90일, 공간 40→26(12/14), 최종 순서와 포함 횟수를 실제 CSV에서 확인했다.
+- STEP 4의 12개 조건·2,572행을 원본 순위 CSV와 확인하고 STEP 5의 40개·500m 결과 8개 다중/14개 단일을 원본 공간 요약과 대조했다. 이 두 검증 전용 CSV는 브라우저에 추가 다운로드하지 않는다.
+- STEP 4·7 가중치를 Notebook 코드에서 읽어 설명용 설정과 비교했다. STEP 7 실제 정렬 코드의 `top6_frequency`, `median_rank`, `score_balanced`와 방향도 확인했다.
+- `npm run build`: TypeScript·Vite 프로덕션 빌드 성공. 데이터 13개 사본은 총 230,015바이트이며 원본 바이트·SHA-256 검증을 통과했다.
+- 최종 프로덕션 미리보기의 Chrome에서 기존 종합 현황·시간대별·권역 탐색 3개 회귀 검증 통과.
+- 분석 페이지: 7개 과정 선택, 군집 규모, 6×4 순위·점수 툴팁, 26×4 전체 점수/순위 대조, 시나리오 전환, 페이지 간 선택 전달, 새로고침, HTTP 오류·재시도·빈 자료·중복 거부 통과.
+- 데스크톱 1536px / 모바일 390px 화면을 캡처하고 확인했다. 문서 가로 넘침 없음, 모바일 순위 표 내부 가로 스크롤 확인, 처리되지 않은 브라우저 JavaScript 오류 0건.
+- 대용량 원천 파일 검증은 `StopGroup_Hourly`·STEP 8·`final_dataset` 요청을 구분해 확인한다. 기존 `/temporal` 링크가 사용하는 경량 `hourly-zone-shares.csv`는 정상 요청이다.
+- 캡처: `test-results/analysis-desktop.png`, `test-results/analysis-mobile.png`. 검증용 서버는 종료했다.

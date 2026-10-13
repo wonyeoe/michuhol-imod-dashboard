@@ -38,8 +38,8 @@ export function Layout() {
       <div className="workspace-label"><span className="size-2 rounded-full bg-blue-500" /> INCHEON · MICHUHOL</div>
       <p className="nav-section-label">데이터 대시보드</p>
       <nav aria-label="주 메뉴" className="flex flex-col gap-1.5">
-        {navigation.map(({ path, label, icon: Icon }, index) => <NavLink key={path} to={path} end={path === '/'} onClick={() => setOpen(false)} className={({ isActive }) => cn('nav-link', isActive && 'nav-link-active')}>
-          <Icon size={18} /><span>{label}</span>{index > 2 && <span className="nav-soon">예정</span>}
+        {navigation.map(({ path, label, icon: Icon }) => <NavLink key={path} to={path} end={path === '/'} onClick={() => setOpen(false)} className={({ isActive }) => cn('nav-link', isActive && 'nav-link-active')}>
+          <Icon size={18} /><span>{label}</span>
         </NavLink>)}
       </nav>
       <div className="sidebar-bottom">
