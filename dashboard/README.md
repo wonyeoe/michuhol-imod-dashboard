@@ -390,3 +390,8 @@ STEP 7 Notebook의 실행 코드는 다음 순서다.
 - 데스크톱 1536px / 모바일 390px 화면을 캡처하고 확인했다. 문서 가로 넘침 없음, 모바일 순위 표 내부 가로 스크롤 확인, 처리되지 않은 브라우저 JavaScript 오류 0건.
 - 대용량 원천 파일 검증은 `StopGroup_Hourly`·STEP 8·`final_dataset` 요청을 구분해 확인한다. 기존 `/temporal` 링크가 사용하는 경량 `hourly-zone-shares.csv`는 정상 요청이다.
 - 캡처: `test-results/analysis-desktop.png`, `test-results/analysis-mobile.png`. 검증용 서버는 종료했다.
+
+
+## 5차 통합 검수 및 UI/UX 개선
+
+반복 장식·푸터를 제거하고 네 페이지의 핵심 결과, 지표 해석, 접근 가능한 상세 설명을 정리했습니다. 데이터 로더와 원본 분석은 유지합니다. 페이지별 변경, 데이터 검수, 40개 테스트와 브라우저 검증, 최종 8개 캡처는 [5차 완료 보고서](docs/phase5-review.md)에 정리했습니다. `npm run test:browser`는 최종 UX 검수와 캡처도 함께 실행합니다.

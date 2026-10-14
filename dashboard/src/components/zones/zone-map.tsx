@@ -39,7 +39,7 @@ function ZoneMarker({ zone, selected, onSelect }: { zone: Zone; selected: boolea
   })
   return <Marker ref={marker} position={[zone.latitude, zone.longitude]} icon={icon} title={`${zone.zoneId} · ${zone.names.join(', ')}`} alt={`${zone.zoneId} ${final ? `최종 예비 후보, 검토 순서 ${zone.reviewOrder}` : '나머지 평가 단위'}`} zIndexOffset={selected ? 1000 : final ? 500 : 0} eventHandlers={{ click: () => onSelect(zone.zoneId) }}>
     <Popup minWidth={200} maxWidth={240} autoPanPaddingTopLeft={[15, 65]} autoPanPaddingBottomRight={[15, 30]}>
-      <div className="map-popup"><p className="text-xs font-bold text-blue-700">{zone.zoneId} · {final ? `최종 예비 후보 ${zone.reviewOrder}` : '나머지 평가 단위'}</p><h3 className="text-sm font-semibold leading-relaxed">{zone.names.join(' · ')}</h3><dl className="mt-3 grid grid-cols-2 gap-y-2 text-xs"><dt>정류장명 그룹</dt><dd>{zone.members.length}개</dd><dt>일평균 승차량</dt><dd>{formatNumber(zone.dailyDemand, 1)}명/일</dd></dl><p className="mb-0! mt-3! text-[10px] text-slate-400">분석 권역 대표점 · 서비스 경계 아님</p></div>
+      <div className="map-popup"><p className="text-xs font-bold text-blue-700">{zone.zoneId} · {final ? `최종 예비 후보 ${zone.reviewOrder}` : '나머지 평가 단위'}</p><h3 className="text-sm font-semibold leading-relaxed">{zone.names.join(' · ')}</h3><dl className="mt-3 grid grid-cols-2 gap-y-2 text-xs"><dt>정류장명 그룹</dt><dd>{zone.members.length}개</dd><dt>일평균 승차량</dt><dd>{formatNumber(zone.dailyDemand, 1)}명/일</dd></dl><p className="mb-0! mt-3! text-xs text-slate-500">분석 권역 대표점 · 서비스 경계 아님</p></div>
     </Popup>
   </Marker>
 }
@@ -67,7 +67,7 @@ export default function ZoneMap({ zones, selectedId, onSelect, showMembers }: Pr
         </CircleMarker>)}
       </Pane>
     </MapContainer>
-    <div className="absolute left-3 top-3 z-[500] rounded-lg border border-white/80 bg-white/95 px-3 py-2 text-[11px] text-slate-600 shadow-sm">표시 권역 <strong>{zones.length}</strong>개</div>
+    <div className="absolute left-3 top-3 z-[500] rounded-lg border border-white/80 bg-white/95 px-3 py-2 text-xs text-slate-600 shadow-sm">표시 권역 <strong>{zones.length}</strong>개</div>
     <Button size="sm" variant="outline" className="absolute right-3 top-3 z-[500] bg-white shadow-sm" onClick={() => setReset((n) => n + 1)}><LocateFixed />전체 보기</Button>
     {loading && !tileError && <p role="status" className="absolute bottom-5 left-3 z-[500] rounded bg-white/95 p-2 text-xs text-slate-500">배경 지도를 불러오는 중…</p>}
     {tileError && <div role="status" className="absolute bottom-7 left-3 right-14 z-[500] flex flex-wrap items-center gap-2 rounded-lg border border-amber-200 bg-white/95 p-3 text-xs text-slate-600"><span className="flex-1 leading-relaxed">배경 지도를 불러오지 못했습니다. 권역 좌표와 목록은 계속 확인할 수 있습니다.</span><Button size="sm" variant="outline" onClick={() => { loaded.current = false; setTileError(false); setLoading(true); setAttempt((n) => n + 1) }}><RefreshCw />재시도</Button></div>}

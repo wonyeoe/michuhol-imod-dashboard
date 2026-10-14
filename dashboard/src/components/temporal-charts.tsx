@@ -11,7 +11,7 @@ export function TemporalCharts({ zone }: { zone: TemporalZone }) {
     <Card className="min-w-0 p-4 sm:p-6" data-testid="hourly-chart">
       <h2 className="text-base font-bold">시간대별 승차·운행 비중 비교</h2>
       <p className="mt-2 text-xs leading-relaxed text-slate-500">{zone.candidate.zoneId} · 90일 누적 분포 · 각 비중의 24시간 합계 100%</p>
-      <div className="mt-5 h-[300px] w-full" aria-label="24시간 승차·운행 비중 꺾은선그래프">
+      <p className="chart-reading">{hourLabel(peak.hour)}에는 승차 비중 {peak.demand.toFixed(2)}%가 운행 비중 {peak.supply.toFixed(2)}%보다 높습니다. 두 선은 각각 이 권역의 누적 총량을 100%로 놓고 비교합니다.</p><div className="mt-5 h-[300px] w-full" aria-label="24시간 승차·운행 비중 꺾은선그래프">
         <ResponsiveContainer width="100%" height="100%" minWidth={0}>
           <LineChart data={hours} margin={{ top: 15, right: 12, bottom: 0, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
@@ -28,7 +28,7 @@ export function TemporalCharts({ zone }: { zone: TemporalZone }) {
     </Card>
     <Card className="min-w-0 p-4 sm:p-6" data-testid="gap-chart">
       <div className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-base font-bold">시간대별 승차·운행 비중 차이</h2><p className="mt-2 text-xs text-slate-500">승차 비중 − 운행 비중 · 단위 %p</p></div><span className="rounded-md bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-700">최대 {hourLabel(peak.hour)} · +{peak.gap.toFixed(2)}%p</span></div>
-      <div className="mt-5 h-[270px] w-full" aria-label="24시간 상대 격차 막대그래프">
+      <p className="chart-reading">가장 큰 양의 차이는 {hourLabel(peak.hour)}의 {peak.gap.toFixed(2)}%p입니다. 0 아래 막대는 운행 비중이 더 높은 시간이며 오류나 음수 승차량이 아닙니다.</p><div className="mt-5 h-[270px] w-full" aria-label="24시간 상대 격차 막대그래프">
         <ResponsiveContainer width="100%" height="100%" minWidth={0}>
           <BarChart data={hours} margin={{ top: 10, right: 12, bottom: 0, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
@@ -40,11 +40,12 @@ export function TemporalCharts({ zone }: { zone: TemporalZone }) {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="mt-3 flex flex-wrap justify-center gap-5 text-xs text-slate-500"><span>🔵 양수: 승차 비중이 큼</span><span className="text-amber-700">● 음수: 운행 비중이 큼</span><span className="text-blue-800">■ 최대 상대 격차</span></div>
+      <div className="mt-3 flex flex-wrap justify-center gap-5 text-xs text-slate-500"><span>● 양수: 승차 비중이 큼</span><span className="text-amber-700">● 음수: 운행 비중이 큼</span><span className="text-blue-800">■ 최대 상대 격차</span></div>
+      <details className="mt-5"><summary className="text-sm font-medium text-blue-700">24시간 비중과 차이 수치 보기</summary><div className="overflow-x-auto"><table className="candidate-table" data-testid="hourly-values"><caption className="sr-only">선택 권역의 시간별 비중과 차이</caption><thead><tr><th>시간</th><th>승차 (%)</th><th>운행 (%)</th><th>차이 (%p)</th></tr></thead><tbody>{hours.map((h) => <tr key={h.hour}><th>{hourLabel(h.hour)}{h.hour === peak.hour && ' · 최대'}</th><td>{h.demand.toFixed(3)}</td><td>{h.supply.toFixed(3)}</td><td>{h.gap.toFixed(3)}</td></tr>)}</tbody></table></div></details>
     </Card>
     <Card className="min-w-0 p-4 sm:p-6" data-testid="monthly-chart">
-      <h2 className="text-base font-bold">월별 패턴 비교</h2><p className="mt-2 text-xs leading-relaxed text-slate-500">월별 일평균 승차량 · 월마다 다른 관측일 수를 반영합니다.</p>
-      <div className="mt-5 h-[240px] w-full" aria-label="월별 일평균 승차량 막대그래프">
+      <h2 className="text-base font-bold">월별 일평균 승차량 비교</h2><p className="mt-2 text-xs leading-relaxed text-slate-500">단위: 명/일 · 월마다 다른 관측일 수를 반영합니다.</p>
+      <p className="chart-reading">{months.reduce((a, b) => b.dailyRiders > a.dailyRiders ? b : a).month}월의 일평균 승차량이 가장 높습니다. 월별 누적값을 각 월의 관측일 수로 나눈 결과입니다.</p><div className="mt-5 h-[240px] w-full" aria-label="월별 일평균 승차량 막대그래프">
         <ResponsiveContainer width="100%" height="100%" minWidth={0}>
           <BarChart data={months} margin={{ top: 10, right: 12, bottom: 0, left: 5 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />

@@ -30,14 +30,11 @@
   .sidebar-open { @apply visible translate-x-0; }
   .brand { @apply flex items-center gap-2.5 px-2 no-underline; }
   .brand strong { @apply block text-[19px] tracking-tight; }
-  .brand small { @apply mt-1 block text-[10px] tracking-wide text-slate-400; }
+  .brand small { @apply mt-1 block text-xs tracking-wide text-slate-500; }
   .brand-symbol { @apply flex size-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm; }
-  .workspace-label { @apply mb-8 mt-8 flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-[10px] font-medium tracking-wider text-slate-500; }
-  .nav-section-label { @apply mb-3 px-3 text-[10px] font-medium tracking-wide text-slate-400; }
+  .nav-section-label { @apply mb-3 px-3 text-xs font-medium tracking-wide text-slate-500; }
   .nav-link { @apply flex min-h-11 items-center gap-3 rounded-lg px-3 py-3 text-[12px] font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-800; }
   .nav-link-active { @apply bg-blue-50 text-blue-600 hover:bg-blue-50 hover:text-blue-600; }
-  .nav-soon { @apply ml-auto text-[9px] font-normal text-slate-400; }
-  .sidebar-bottom { @apply mt-auto px-1 pt-10; }
   .topbar { @apply flex h-[68px] items-center justify-between gap-3 border-b border-border bg-white/90 px-4 sm:px-8 lg:px-9; }
   .page-intro { @apply flex flex-col items-start justify-between gap-5 lg:flex-row lg:items-center; }
   .page-intro h1 { @apply text-[23px] font-bold leading-snug tracking-[-0.04em] text-slate-800 sm:text-[27px]; }
@@ -83,3 +80,17 @@
 .leaflet-bar { border: 1px solid #e2e8f0 !important; border-radius: 8px !important; overflow: hidden; box-shadow: 0 2px 6px #0f172a10 !important; }
 @media (max-width: 639px) { .map-wrapper { height: 390px; } .section-heading { align-items: flex-start; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* Result-first explanations share the existing card palette. */
+.result-summary { border: 1px solid #dbeafe; border-radius: 12px; background: #eff6ff; padding: 24px; }
+.result-summary h2 { font-size: 18px; font-weight: 700; line-height: 1.65; color: #1e3a8a; }
+.result-summary p, .chart-reading { margin-top: 12px; font-size: 14px; line-height: 1.85; color: #475569; }
+.metric-help { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; font-size: 13px; line-height: 1.8; color: #475569; }
+.metric-help summary { font-weight: 600; color: #1d4ed8; }
+.metric-help p { margin-top: 12px; }
+summary { cursor: pointer; min-height: 44px; align-content: center; }
+.candidate-table th { font-size: 12px; }
+@media (max-width: 639px) {
+  .result-summary { padding: 20px; }
+  button[data-slot="button"], a[data-slot="button"], input[type="search"] { min-height: 44px; }
+}

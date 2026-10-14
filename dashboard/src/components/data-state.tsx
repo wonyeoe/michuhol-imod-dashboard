@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 export function DataState({ title, message, retry }: { title: string; message: string; retry?: () => void }) {
   return <Card className="flex min-h-64 flex-col items-center justify-center gap-3 p-8 text-center" role="alert">
-    <AlertCircle size={28} className="text-slate-400" /><h2 className="font-semibold">{title}</h2><p className="max-w-lg text-sm leading-relaxed text-muted-foreground">{message}</p>
+    <AlertCircle size={28} className="text-slate-500" /><h2 className="font-semibold">{title}</h2><p className="max-w-lg text-sm leading-relaxed text-muted-foreground">{message}</p>
     {retry && <Button variant="outline" className="mt-2" onClick={retry}><RotateCcw />다시 불러오기</Button>}
   </Card>
 }
