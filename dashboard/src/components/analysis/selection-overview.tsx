@@ -21,6 +21,7 @@ export function SelectionOverview({ data }: { data: AnalysisData }) {
       </ol>
       <p className="text-xs!">단순 승차량 순위나 한 번의 필터링 결과가 아닙니다. 그룹 단위 분석과 공간 권역 평가를 거쳤습니다.</p>
     </section>
+    <Card className="p-5 sm:p-6" data-testid="selection-context"><h2 className="text-lg font-bold">왜 승차량만으로 선정하지 않았을까요?</h2><p className="mt-3 text-sm leading-7 text-slate-600">버스 이용자가 많다는 사실만으로 교통 서비스가 부족하다고 판단할 수는 없습니다. 따라서 이용 규모뿐 아니라 버스 이용과 운행의 시간적 분포, 월별 변동 등 여러 특성을 함께 평가했습니다.</p></Card>
     <Card className="p-5 sm:p-6" data-testid="selection-rules">
       <h2 className="text-lg font-bold">여러 평가에서 반복해서 상위권에 드는 곳을 먼저 검토합니다</h2>
       <ol className="mt-5 grid gap-4 md:grid-cols-3">

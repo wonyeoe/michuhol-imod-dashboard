@@ -17,6 +17,7 @@ try {
   await page.getByRole('link', { name: '분석 과정 안내' }).click()
   await expect(page).toHaveURL(`${baseURL}/analysis`)
   await expect(page.getByTestId('analysis-summary')).toContainText('286개')
+  await expect(page.getByTestId('selection-context')).toContainText('왜 승차량만으로 선정하지 않았을까요?')
   await expect(page.getByTestId('analysis-methods')).not.toHaveAttribute('open', '')
   await expect(page.getByTestId('review-candidates').locator('li')).toHaveCount(6)
   for (const [index, c] of candidates.entries()) {

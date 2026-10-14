@@ -14,3 +14,6 @@ dataset/04_StopGroup_Hourly_2026Q2.csv
 
 # 임시 파일
 *.log
+# Local hosting metadata
+.vercel/
+.netlify/

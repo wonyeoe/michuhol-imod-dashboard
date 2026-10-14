@@ -28,8 +28,15 @@ try {
   await page.getByText('상세 분석 및 다른 후보와 비교', { exact: true }).click()
   for (const row of scores) {
     await page.getByTestId(`zone-list-${row.zone_id}`).click()
-    await expect(page.getByTestId('zone-summary-sentence')).toContainText(Number(row.daily_demand).toLocaleString('ko-KR', { maximumFractionDigits: 0 }))
-    if (finalIds.includes(row.zone_id)) await expect(page.getByTestId('zone-summary-sentence')).toContainText(`${row.top6_frequency}번`)
+    const summary = page.getByTestId('zone-summary-sentence')
+    await expect(summary).toContainText(`${Number(row.peak_hour) < 12 ? '오전' : '오후'} ${Number(row.peak_hour) % 12 || 12}시`)
+    if (finalIds.includes(row.zone_id)) {
+      await expect(summary).toContainText(Number(row.top6_frequency) === 4 ? '4가지 평가 방식 모두에서' : `${row.top6_frequency}번`)
+      await expect(summary).toContainText('예비 검토 후보로 선정됐습니다')
+    } else {
+      await expect(summary).not.toContainText('선정됐습니다')
+      await expect(summary).toContainText('우선순위를 판단할 수는 없습니다')
+    }
     await expect(detail).toContainText(row.names.split('|').map((n) => n.trim()).join(' · '))
     await expect(detail).toContainText(`${Number(row.daily_demand).toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}명/일`)
     await expect(detail).toContainText(`${(Number(row.peak_hour_gap) * 100).toFixed(2)}%p`)

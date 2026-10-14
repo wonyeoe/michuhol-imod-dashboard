@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { expect, it } from 'vitest'
 import { buildOverview, parseCsv, parseTable } from '../src/data/overview'
 import { buildZones } from '../src/data/zones'
@@ -29,7 +29,8 @@ it('페이지 간 승차량·최대 시간·양의 차이 합과 월별 지표�
   }
 })
 
-it('502개 물리 정류장은 정류장 ID 단위로 확인하며 286개 분석 그룹과 구분한다', () => {
+// Raw inputs are intentionally not distributed in Git; run this audit when available.
+it.skipIf(!existsSync(new URL('../../dataset_raw/3. 미추홀구 버스 정류장.csv', import.meta.url)))('502개 물리 정류장은 정류장 ID 단위로 확인하며 286개 분석 그룹과 구분한다', () => {
   const rows = parseTable(read('dataset_raw/3. 미추홀구 버스 정류장.csv'), { title: '물리 정류장 원본', columns: ['station_id', 'station_name'] })
   expect(rows).toHaveLength(502)
   expect(new Set(rows.map((r) => r.station_id)).size).toBe(502)
