@@ -21,6 +21,10 @@ try {
       await page.goto(`${baseURL}${path}`)
       await expect(page.getByTestId(ready)).toBeVisible()
       await expect(page.locator('main .result-summary')).toHaveCount(1)
+      if (name === 'zones' || name === 'analysis') {
+        await expect(page.getByTestId(name === 'zones' ? 'zone-expanded-analysis' : 'analysis-methods')).not.toHaveAttribute('open', '')
+        await expect(page.locator('main .recharts-wrapper:visible')).toHaveCount(0)
+      }
       await expect(page.locator('footer')).toHaveCount(0)
       await expect(page.getByText(/INCHEON · MICHUHOL|2026 Q2 · 연구 프로젝트|AI 데이터 분석 경진대회/)).toHaveCount(0)
       await expect(page.locator('header').getByText('인천 미추홀구')).toBeVisible()
@@ -34,6 +38,7 @@ try {
       const file = `final-${name}-${device}.png`
       await page.screenshot({ path: fileURLToPath(new URL(file, output)), fullPage: true })
       screenshots.push(file)
+      if (name === 'zones' || name === 'analysis') await page.screenshot({ path: fileURLToPath(new URL(`phase6-${name}-${device}.png`, output)), fullPage: true })
     }
   }
   await page.goto(`${baseURL}/temporal`)
@@ -55,10 +60,18 @@ try {
   await expect(page.getByTestId('temporal-Z02')).toHaveAttribute('aria-pressed', 'true')
   await page.getByRole('link', { name: '선택 후보의 위치와 평가 지표 보기' }).click()
   await expect(page).toHaveURL(`${baseURL}/zones?zone=Z02`)
+  const zoneDetails = page.getByText('상세 분석 및 다른 후보와 비교', { exact: true })
+  await zoneDetails.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByTestId('zone-scenarios')).toBeVisible()
   const help = page.getByText('시간 분포 차이와 월별 변동은 어떻게 읽나요?', { exact: true })
   await help.click()
   await expect(page.getByText(/시간 분포 차이\(positive_gap_sum\)/)).toBeVisible()
   await page.goto(`${baseURL}/analysis`)
+  const methods = page.getByText('분석 방법 자세히 보기', { exact: true })
+  await methods.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByTestId('analysis-clusters')).toBeVisible()
   const scores = page.getByText('시나리오별 정확한 점수와 순위 중앙값의 의미', { exact: true })
   await scores.focus()
   await page.keyboard.press('Enter')

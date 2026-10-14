@@ -37,7 +37,7 @@ try {
     else if (path === 'zones') await expect(page.getByTestId('zone-list-Z06')).toBeVisible()
     else await expect(page.getByTestId('analysis-summary')).toBeVisible()
     await page.reload()
-    await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: ({ zones: '어디를 우선 검토해야 할까?', analysis: '왜 이 6개 지역이 선정됐을까?' })[path] ?? title, exact: true })).toBeVisible()
   }
   checks.push('시간대별·권역 탐색·분석 안내 라우팅 및 직접 새로고침')
   await page.goto(`${baseURL}/missing-page`)
